@@ -9,5 +9,5 @@ curl -L https://github.com/docker/compose/releases/latest/download/docker-compos
 chmod +x /usr/local/bin/docker-compose;
 service docker start;
 usermod -a -G docker ssm-user;
-curl 'https://raw.githubusercontent.com/mage-ai/docker/master/docker-compose.yml' > /home/ssm-user/docker-compose.yml;
-chown ssm-user /home/ssm-user/docker-compose.yml;
+# curl 'https://raw.githubusercontent.com/mage-ai/docker/master/docker-compose.yml' > /home/ssm-user/docker-compose.yml;
+# chown ssm-user /home/ssm-user/docker-compose.yml;
