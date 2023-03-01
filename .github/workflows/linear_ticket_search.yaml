@@ -1,0 +1,17 @@
+name: Search Linear ticket reference
+
+on: pull_request
+
+env:
+  REQUIRED_COMMENT_USER: "linear[bot]"
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  EVENT_DETAILS: ${{ toJSON(github.event) }}
+
+jobs:
+  linear_ticket_search:
+    runs-on: ubuntu-latest
+    container: python:3.7-slim
+
+    steps:
+      - name: Search pull-request comments
+        uses: peterkrauz/search-pull-request-comments-action@v0.0.8
