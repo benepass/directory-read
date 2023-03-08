@@ -1,0 +1,26 @@
+[tool.black]
+py39 = true
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | __pycache__
+  | terraform
+  | vendor
+  | docker/localstack
+)/
+'''
+
+[tool.isort]
+py_version=39
+profile = 'black'
+skip_glob = ['vendor', 'terraform', 'docker/localstack']
+
+[tool.bandit]
+exclude_dirs = ['.git', '__pycache__', 'vendor', 'tests', 'terraform', 'docker/localstack']
+
+[tool.pyright]
+exclude = ['.git', '__pycache__', 'vendor', 'terraform', 'docker/localstack/']
+
+[tool.coverage.run]
+omit = ["tests/*", "utils/*", "shell.py"]
