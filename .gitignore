@@ -1,0 +1,22 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+# docker
+docker/db/
+
+# environment variables
+.env
+
+# python version
+.python-version
+__pycache__/
+
+# terraform
+.terraform/**
+.terraform*
+terraform.tfstate.d*
+terraform/builds/*
+terraform.tfstate
+terraform.tfvars
