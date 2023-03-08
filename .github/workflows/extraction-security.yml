@@ -1,0 +1,32 @@
+name: security
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    paths:
+    - extraction/**
+
+defaults:
+  run:
+    working-directory: ./extraction
+
+jobs:
+  check-security:
+    runs-on: ubuntu-latest
+    container: python:3.9.11-slim
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Update packages and install make
+        run: apt -y update && apt install make
+
+      - name: Install requirements
+        run: pip install -r requirements/base.txt -r requirements/dev.txt
+
+      - name: Check security issues
+        run: make check-security-issues
