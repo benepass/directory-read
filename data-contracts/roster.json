@@ -1,274 +1,208 @@
 {
-  "name":"ingestion-service-contract",
-  "columns":[
+  "name": "roster-contract",
+  "columns": [
     {
-      "label":"Unique Id",
-      "key":"unique_id",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required":false,
-      "is_unique":true
+      "label": "Unique Id",
+      "key": "unique_id",
+      "data_type": "TEXT",
+      "is_unique": true
     },
     {
-      "label":"First Name",
-      "key":"first_name",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required":true,
-      "is_unique":true
-    },
-    {
-      "label":"Last Name",
-      "key":"last_name",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required":true,
-      "is_unique":true
-    },
-    {
-      "label":"Job Title",
-      "key":"title",
-      "data_type":"TEXT",
-      "data_length":null,
-      "is_required":true,
-      "is_unique":false
-    },
-    {
-      "label":"Primary Email",
-      "key":"primary_email",
-      "data_type":"EMAIL",
-      "data_length":128,
-      "is_required":true,
-      "is_unique":true
-    },
-    {
-      "label":"Alternative Email",
-      "key":"alternative_email",
-      "data_type":"EMAIL",
-      "data_length":128,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Social Security Number",
-      "key":"ssn",
-      "data_type":"SSN_UNMASKED",
-      "data_length":null,
-      "is_required":false, // if you got an HSA you need it TODO
-      "is_unique":false
-    },
-    {
-      "label":"Date of Birth",
-      "key":"dob",
-      "data_type":"DATE_ISO",
-      "data_length":null,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Payroll ID",
-      "key":"payroll_id",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required":false,
-      "is_unique":true
-    },
-    {
-      "label":"Employee Number",
-      "key":"employee_number",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required":false,
-      "is_unique":true
-    },
-    {
-      "label":"Employee Type",
-      "key":"employee_type",
-      "data_type": "PICKLIST",
-        "validation_options": {
-          "values": [
-            "FULL_TIME",
-            "PART_TIME",
-            "INTERN"
-          ]
-        },
-      "data_length":null,
-      "is_required":true,
-      "is_unique":false
-    },
-    {
-      "label":"Employee Full Time Percentave",
-      "key":"employee_fte",
-      "data_type":"PERCENTAGE",
-      "data_length":null,
-      "is_required":true,
-      "is_unique":false
-    },
-    {
-      "label":"Employment Status",
-      "key":"employment_status",
-      "data_type": "PICKLIST",
-        "validation_options": {
-          "values": [
-            "ACTIVE",
-            "LEAVE_OF_ABSENCE",
-            "TERMINATED",
-            "UNSUPPORTED"
-          ]
-        },
-      "data_length":null,
-      "is_required":true,
-      "is_unique":false
-    },
-    {
-      "label":"Additonal Parsing Information",
-      "key":"overrides",
-      "data_type":null,
-      "data_length":null,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Custom Payroll Worker Fields",
-      "key":"custom_fields",
-      "data_type":null,
-      "data_length":null,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Hire Date",
-      "key":"hire_date",
-      "data_type":"DATE_ISO",
-      "data_length":null,
-      "is_required":true,
-      "is_unique":false
-    },
-    {
-      "label":"Termination Date",
-      "key":"termination_date",
-      "data_type":"DATE_ISO",
-      "data_length":null,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address City",
-      "key":"home_address_city",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address State",
-      "key":"home_address_state",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address Street",
-      "key":"home_address_street",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"",
-      "key":"main_phone",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required":false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address Country",
-      "key":"home_address_country",
-      "data_type":"COUNTRY_CODE_A2",
-      "data_length": null,
+      "label": "First Name",
+      "key": "first_name",
+      "data_type": "TEXT",
       "is_required": true,
-      "is_unique":false
+      "must_exist": true,
+      "is_unique": true
     },
     {
-      "label":"Office Address State",
-      "key":"office_address_state",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required": false,
-      "is_unique":false
-    },
-    {
-      "label":"Office Address City",
-      "key":"office_address_city",
-      "data_type":"TEXT",
-      "data_length":64,
-      "is_required": false,
-      "is_unique":false
-    },
-    {
-      "label":"Office Address Street",
-      "key":"office_address_street",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required": false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address Postal Code",
-      "key":"home_address_postal_code",
-      "data_type":"TEXT",
-      "data_length":32,
-      "is_required": false,
-      "is_unique":false
-    },
-    {
-      "label":"Home Address Street Line 2",
-      "key":"home_address_street_line_2",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required": false,
-      "is_unique":false
-    },
-    {
-      "label":"Office Address Country",
-      "key":"office_address_country",
-      "data_type":"COUNTRY_CODE_A2",
-      "data_length":null,
+      "label": "Last Name",
+      "key": "last_name",
+      "data_type": "TEXT",
       "is_required": true,
-      "is_unique":false
+      "must_exist": true,
+      "is_unique": true
     },
     {
-      "label":"Office Address Postal Code",
-      "key":"office_address_postal_code",
-      "data_type":"TEXT",
-      "data_length":32,
-      "is_required": false,
-      "is_unique":false
+      "label": "Job Title",
+      "key": "title",
+      "data_type": "TEXT",
+      "is_required": true,
+      "must_exist": true
     },
     {
-      "label":"Office Address Street Line 2",
-      "key":"office_address_street_line_2",
-      "data_type":"TEXT",
-      "data_length":128,
-      "is_required": false,
-      "is_unique":false
+      "label": "Primary Email",
+      "key": "primary_email",
+      "data_type": "EMAIL",
+      "is_required": true,
+      "must_exist": true,
+      "is_unique": true
     },
     {
-      "label":"Pay Frequency",
-      "key":"pay_frequency",
+      "label": "Alternative Email",
+      "key": "alternative_email",
+      "data_type": "EMAIL"
+    },
+    {
+      "label": "Social Security Number",
+      "key": "ssn",
+      "data_type": "SSN_UNMASKED"
+    },
+    {
+      "label": "Date of Birth",
+      "key": "dob",
+      "data_type": "DATE_ISO"
+    },
+    {
+      "label": "Payroll ID",
+      "key": "payroll_id",
+      "data_type": "TEXT",
+      "is_unique": true
+    },
+    {
+      "label": "Employee Number",
+      "key": "employee_number",
+      "data_type": "TEXT",
+      "is_unique": true
+    },
+    {
+      "label": "Employee Type",
+      "key": "employee_type",
       "data_type": "PICKLIST",
-        "validation_options": {
-          "values": [
-            "TWICE_MONTHLY",
-            "ONCE_MONTHLY"
-          ]
-        },
-      "data_length":null,
-      "is_required": false, // TO DO: Conditional
-      "is_unique":false
+      "validation_options": {
+        "values": [
+          "FULL_TIME",
+          "PART_TIME",
+          "INTERN"
+        ]
+      },
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Employee Full Time Percentave",
+      "key": "employee_fte",
+      "data_type": "PERCENTAGE",
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Employment Status",
+      "key": "employment_status",
+      "data_type": "PICKLIST",
+      "validation_options": {
+        "values": [
+          "ACTIVE",
+          "LEAVE_OF_ABSENCE",
+          "TERMINATED",
+          "UNSUPPORTED"
+        ]
+      },
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Additonal Parsing Information",
+      "key": "overrides",
+      "data_type": null
+    },
+    {
+      "label": "Custom Payroll Worker Fields",
+      "key": "custom_fields",
+      "data_type": null
+    },
+    {
+      "label": "Hire Date",
+      "key": "hire_date",
+      "data_type": "TEXT",
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Termination Date",
+      "key": "termination_date",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address City",
+      "key": "home_address_city",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address State",
+      "key": "home_address_state",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address Street",
+      "key": "home_address_street",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "",
+      "key": "main_phone",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address Country",
+      "key": "home_address_country",
+      "data_type": "TEXT",
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Office Address State",
+      "key": "office_address_state",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Office Address City",
+      "key": "office_address_city",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Office Address Street",
+      "key": "office_address_street",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address Postal Code",
+      "key": "home_address_postal_code",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Home Address Street Line 2",
+      "key": "home_address_street_line_2",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Office Address Country",
+      "key": "office_address_country",
+      "data_type": "TEXT",
+      "is_required": true,
+      "must_exist": true
+    },
+    {
+      "label": "Office Address Postal Code",
+      "key": "office_address_postal_code",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Office Address Street Line 2",
+      "key": "office_address_street_line_2",
+      "data_type": "TEXT"
+    },
+    {
+      "label": "Pay Frequency",
+      "key": "pay_frequency",
+      "data_type": "PICKLIST",
+      "validation_options": {
+        "values": [
+          "TWICE_MONTHLY",
+          "ONCE_MONTHLY"
+        ]
+      }
     }
-  }
+  ],
+  "template_key": "roster-contract"
 }
