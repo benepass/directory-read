@@ -23,7 +23,7 @@ def get_sentry_dsn() -> str:
 
 
 def get_app_name() -> str:
-    return "benefits-functions"
+    return "directory-read/extraction"
 
 
 def is_debug() -> bool:
