@@ -1,0 +1,26 @@
+# Chalice
+chalice==1.27.3
+
+# Environment manager
+python-decouple==3.7
+
+# pg8000
+pg8000==1.29.4
+
+# sentry
+sentry-sdk[chalice]==1.14.0
+
+# boto3
+boto3==1.26.64
+
+# shortuuid
+shortuuid==1.0.11
+
+# async requests
+httpx==0.23.3
+
+# http retries
+tenacity==8.1.0
+
+# crypto
+cryptography==37.0.4
