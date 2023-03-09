@@ -23,4 +23,4 @@ httpx==0.23.3
 tenacity==8.1.0
 
 # crypto
-cryptography==37.0.4
+cryptography==39.0.1
