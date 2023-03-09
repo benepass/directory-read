@@ -20,3 +20,7 @@ terraform.tfstate.d*
 terraform/builds/*
 terraform.tfstate
 terraform.tfvars
+
+.variables/
+.logs/
+/docker/
