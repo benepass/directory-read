@@ -9,6 +9,10 @@ on:
     paths:
     - extraction/terraform/**
 
+defaults:
+  run:
+    working-directory: ./extraction
+
 jobs:
   terraform-formatter:
     runs-on: ubuntu-latest
