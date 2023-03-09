@@ -45,7 +45,7 @@
         },
         {
         "label": "Employee Contribution Amount",
-        "key": "employer_contribution_amount",
+        "key": "employee_contribution_amount",
         "data_type": "NUMBER",
         "is_required": true,
         "must_exist": true
