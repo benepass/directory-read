@@ -1,17 +1,15 @@
 version: '3.0'
 
 services:
-  server:
+  transform:
     image: mageai/mageai:latest
-    build:
-      context: .
-    command: mage start directory_read
+    command: mage start transform
     environment:
       - ENV=dev
     ports:
       - 6789:6789
     volumes:
-      - .:/home/src
+      - ./:/home/src
     restart: on-failure:5
     stdin_open: true # used for interactive debugging
     tty: true # used for interactive debugging

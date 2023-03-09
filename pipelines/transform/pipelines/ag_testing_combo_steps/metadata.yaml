@@ -1,0 +1,81 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks:
+  - transform_merge
+  - purple_wildflower
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: read_benepass_merge_source_data
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: read_benepass_merge_source_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: a
+    export_write_policy: append
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: purple wildflower
+  status: failed
+  type: transformer
+  upstream_blocks:
+  - read_benepass_merge_source_data
+  uuid: purple_wildflower
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: ag_testing
+    export_write_policy: replace
+    file_path: null
+    use_raw_sql: false
+  downstream_blocks:
+  - ag_validate_post
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: transform_merge
+  status: failed
+  type: transformer
+  upstream_blocks:
+  - read_benepass_merge_source_data
+  uuid: transform_merge
+- all_upstream_blocks_executed: false
+  color: purple
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: ag_testing
+    export_write_policy: replace
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: ag_validate_post
+  status: updated
+  type: custom
+  upstream_blocks:
+  - transform_merge
+  uuid: ag_validate_post
+data_integration: null
+name: ag_testing-combo-steps
+type: python
+uuid: ag_testing_combo_steps
+widgets: []
+]

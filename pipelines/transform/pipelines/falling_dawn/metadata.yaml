@@ -1,0 +1,20 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: read_benepass_merge_source_data
+  status: not_executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: read_benepass_merge_source_data
+data_integration: null
+name: falling dawn
+type: python
+uuid: falling_dawn
+widgets: []
