@@ -1,0 +1,97 @@
+{
+    "name": "election-contract",
+    "columns": [
+      {
+        "label": "Roster Record Unique Id",
+        "key": "roster_record_unique_id",
+        "data_type": "TEXT",
+        "is_required": true,
+        "is_unique": true,
+        "max_char_limit": 256,
+        "must_exist": true
+      },
+      {
+        "label": "Election Cadence",
+        "key": "election_cadence",
+        "data_type": "TEXT",
+        "max_char_limit": 256
+      },
+      {
+        "label": "Benefit Name",
+        "key": "benefit",
+        "data_type": "PICKLIST",
+        "validation_options": {
+          "values": [
+            "HEALTH_FSA",
+            "DEPENDENT_CARE_FSA",
+            "TRANSIT",
+            "PARKING",
+            "HEALTH_REIMBURSEMENT",
+            "HEALTH_SAVINGS",
+            "LIMITED_PURPOSE_FSA",
+            "PERK"
+          ]
+        },
+        "is_required": true,
+        "must_exist": true
+      },
+      {
+        "label": "Employee Contribution Amount",
+        "key": "employee_contribution_amount",
+        "data_type": "NUMBER",
+        "is_required": true,
+        "must_exist": true
+      },
+      {
+        "label": "Employer Contribution Amount",
+        "key": "employer_contribution_amount",
+        "data_type": "NUMBER",
+        "is_required": true,
+        "must_exist": true
+      },
+      {
+        "label": "Employer Contribution Cadence",
+        "key": "employer_contribution_amount_cadence",
+        "data_type": "TEXT",
+        "is_required": true,
+        "max_char_limit": 256,
+        "must_exist": true
+      },
+      {
+        "label": "Employee Contribution Cadence",
+        "key": "employee_contribution_amount_cadence",
+        "data_type": "TEXT",
+        "is_required": true,
+        "max_char_limit": 256,
+        "must_exist": true
+      },
+      {
+        "label": "Election Start Date",
+        "key": "election_start_date",
+        "data_type": "DATE_ISO",
+        "is_required": true,
+        "must_exist": true
+      },
+      {
+        "label": "Election End Date",
+        "key": "election_end_date",
+        "data_type": "DATE_ISO",
+        "is_required": true,
+        "must_exist": true
+      },
+      {
+        "label": "Election Is Active",
+        "key": "election_active",
+        "data_type": "PICKLIST",
+        "validation_options": {
+          "values": [
+            "TRUE",
+            "FALSE"
+          ]
+        },
+        "is_required": true,
+        "must_exist": true
+      }
+    ],
+    "template_key": "election-contract"
+  }
