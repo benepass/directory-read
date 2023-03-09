@@ -1,11 +1,14 @@
+import functools
 from logging import INFO
-from typing import Optional, TypedDict
+from typing import Dict, Optional, TypedDict
 
 import sentry_sdk
 from decouple import config
 from sentry_sdk import init as init_sentry
 from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 from sentry_sdk.integrations.chalice import ChaliceIntegration
+
+from chalicelib.adapters import secret_manager
 
 DEV = "dev"
 TEST = "test"
@@ -91,3 +94,30 @@ def get_maximum_request_attempts() -> int:
 
 def get_cognito_jwks_uri() -> str:
     return str(config("COGNITO_JWKS_URI", default=""))
+
+
+@functools.cache
+def get_secrets(key: str = "DIRECTORY_READ_EXTRACTION_SECRETS") -> Dict[str, str]:
+    if is_dev_or_test():
+        config(
+            "ENVIRONMENT"
+        )  # Config is lazy and will only return the repo in case it gets called
+        return config.config.repository.data
+
+    return secret_manager.get_secret(key=str(config(key)))
+
+
+# Merge credentials
+class MergeAPICredentials(TypedDict):
+    api_url: str
+    authorization_token: str
+    account_token: str
+
+
+def get_merge_api_credentials() -> MergeAPICredentials:
+    secrets = get_secrets()
+    return {
+        "api_url": config("MERGE_API_URL"),
+        "authorization_token": secrets["MERGE_API_BENEPASS_AUTHORIZATION_TOKEN"],
+        "account_token": secrets["MERGE_API_BENEPASS_ACCOUNT_TOKEN"],
+    }
