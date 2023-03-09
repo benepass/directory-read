@@ -10,11 +10,11 @@ blocks:
   has_callback: false
   language: python
   name: read_benepass_merge_source_data
-  status: executed
+  status: failed
   type: data_loader
   upstream_blocks: []
   uuid: read_benepass_merge_source_data
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: postgres
@@ -34,7 +34,7 @@ blocks:
   upstream_blocks:
   - read_benepass_merge_source_data
   uuid: transform_merge
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: postgres
@@ -53,7 +53,7 @@ blocks:
   upstream_blocks:
   - transform_merge
   uuid: remove_extra_quotes
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: teal
   configuration:
     file_path: null
@@ -70,7 +70,7 @@ blocks:
   upstream_blocks:
   - remove_extra_quotes
   uuid: validate_benepass
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_path: null
@@ -85,7 +85,7 @@ blocks:
   upstream_blocks:
   - validate_benepass
   uuid: load_cleaned_data_to_s3/export_success_rows
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_path: null
