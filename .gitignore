@@ -26,5 +26,5 @@ terraform.tfvars
 /docker/
 
 #mage stuff
-./pipelines/mage_data/directory_read/mage-ai.db
-*/metadata.yaml
+mage-ai.db
+metadata.yaml
