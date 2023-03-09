@@ -1,11 +1,6 @@
 from typing import Tuple
 
-from chalice.app import Chalice
-
-try:
-    from chalice.local import LambdaContext  # file is not available in running mode
-except ModuleNotFoundError:
-    LambdaContext = object
+from chalice.app import Chalice, CloudWatchEvent, Cron
 
 from chalicelib import config, middlewares
 from chalicelib.services.handlers.dummy import foo
@@ -29,6 +24,9 @@ def bootstrap() -> Tuple[Chalice, UnitOfWork]:
 app, uow = bootstrap()
 
 
-@app.lambda_function(name="dummy")
-def dummy(event: dict, context: LambdaContext) -> dict:
+EVERY_MIDNIGHT = Cron(0, 0, "*", "*", "?", "*")
+
+
+@app.schedule(name="dummy", expression=EVERY_MIDNIGHT)
+def dummy(event: CloudWatchEvent) -> dict:
     return foo()
