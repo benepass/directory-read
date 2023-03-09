@@ -1,0 +1,28 @@
+version: '3.0'
+
+services:
+  transform:
+    image: mageai/mageai:latest
+    command: mage start transform
+    environment:
+      - ENV=dev
+    ports:
+      - 6789:6789
+    volumes:
+      - ./:/home/src
+    restart: on-failure:5
+    stdin_open: true # used for interactive debugging
+    tty: true # used for interactive debugging
+
+  db:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/db/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_DB: benefitsdirectory_read
+      POSTGRES_PASSWORD: benefitsapi
+      POSTGRES_PORT: 5432

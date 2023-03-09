@@ -1,0 +1,112 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks:
+  - transform_merge
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: read_benepass_merge_source_data
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: read_benepass_merge_source_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: test
+    export_write_policy: replace
+    use_raw_sql: false
+  downstream_blocks:
+  - remove_extra_quotes
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: transform_merge
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - read_benepass_merge_source_data
+  uuid: transform_merge
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_schema: test
+    export_write_policy: replace
+  downstream_blocks:
+  - validate_benepass
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: remove_extra_quotes
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - transform_merge
+  uuid: remove_extra_quotes
+- all_upstream_blocks_executed: true
+  color: teal
+  configuration:
+    file_path: null
+  downstream_blocks:
+  - load_cleaned_data_to_s3/export_success_rows
+  - load_errored_data_to_s3/export_error_rows
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: validate_benepass
+  status: executed
+  type: custom
+  upstream_blocks:
+  - remove_extra_quotes
+  uuid: validate_benepass
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_cleaned_data_to_s3/export_success_rows
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - validate_benepass
+  uuid: load_cleaned_data_to_s3/export_success_rows
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_errored_data_to_s3/export_error_rows
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - validate_benepass
+  uuid: load_errored_data_to_s3/export_error_rows
+data_integration: null
+name: merge_benepass
+type: python
+uuid: merge_benepass
+variables:
+  EMPLOYER_SHORT_UUID: employer_ia8QHtjqf3woezGWP9Kaco
+  has_deductions: 'FALSE'
+  has_elections: 'FALSE'
+  source_data_object: Benepass/prlcon_7rVs3ruFbs7wdgpzoJ4HcV/2023-03-02/roster-1677744000.645118.json
+widgets: []
