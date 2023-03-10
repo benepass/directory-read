@@ -1,0 +1,76 @@
+{
+    "name": "per-period-deduction-contract",
+    "columns": [
+        {
+        "label": "Roster Record Unique Id",
+        "key": "roster_record_unique_id",
+        "data_type": "TEXT",
+        "is_required": true,
+        "is_unique": true,
+        "max_char_limit": 256,
+        "must_exist": true
+        },
+        {
+        "label": "Primary Email",
+        "key": "primary_email",
+        "data_type": "EMAIL",
+        "is_required": false,
+        "must_exist": false
+        },
+        {
+        "label": "Benefit Name",
+        "key": "benefit",
+        "data_type": "PICKLIST",
+        "validation_options": {
+            "values": [
+            "HEALTH_FSA",
+            "DEPENDENT_CARE_FSA",
+            "TRANSIT",
+            "PARKING",
+            "HEALTH_REIMBURSEMENT",
+            "HEALTH_SAVINGS",
+            "LIMITED_PURPOSE_FSA",
+            "PERK"
+            ]
+        },
+        "is_required": true,
+        "must_exist": true
+        },
+        {
+        "label": "Employer Contribution Amount",
+        "key": "employer_contribution_amount",
+        "data_type": "NUMBER",
+        "is_required": true,
+        "must_exist": true
+        },
+        {
+        "label": "Employee Contribution Amount",
+        "key": "employee_contribution_amount",
+        "data_type": "NUMBER",
+        "is_required": true,
+        "must_exist": true
+        },
+        {
+        "label": "Pay Date",
+        "key": "pay_date",
+        "data_type": "DATE_ISO",
+        "is_required": true,
+        "must_exist": true
+        },
+        {
+        "label": "Payroll Period Start Date",
+        "key": "pay_period_start_date",
+        "data_type": "DATE_ISO",
+        "is_required": true,
+        "must_exist": true
+        },
+        {
+        "label": "Payroll Period End Date",
+        "key": "pay_period_end_date",
+        "data_type": "DATE_ISO",
+        "is_required": true,
+        "must_exist": true
+        }
+    ],
+    "template_key": "per-period-deduction-contract"
+  }

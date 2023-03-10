@@ -24,3 +24,7 @@ terraform.tfvars
 .variables/
 .logs/
 /docker/
+
+#mage stuff
+mage-ai.db
+metadata.yaml
