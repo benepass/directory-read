@@ -1,0 +1,35 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+docker/db/
+docker/localstack/
+
+# chalice stuff
+.chalice/deployments/
+.chalice/venv/
+
+# environment variables
+.env
+
+# python version
+.python-version
+__pycache__/
+
+# vendor
+vendor/*
+
+# terraform
+.terraform/**
+.terraform*
+terraform.tfstate.d*
+
+# chalice terraform files
+terraform/chalice.tf.json
+terraform/deployment.zip
+terraform/layer-deployment.zip
+terraform.tfstate
+
+# local main override (used only when deploying locally)
+terraform/main_override.tf
