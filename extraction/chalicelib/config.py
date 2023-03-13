@@ -92,9 +92,6 @@ def get_maximum_request_attempts() -> int:
     return 5 if not is_testing() else 2
 
 
-def get_cognito_jwks_uri() -> str:
-    return str(config("COGNITO_JWKS_URI", default=""))
-
 def get_buffer_max_size() -> int:
     return int(config("BUFFER_MAX_SIZE_MB", default=200)) * 1000000
 
