@@ -95,6 +95,9 @@ def get_maximum_request_attempts() -> int:
 def get_cognito_jwks_uri() -> str:
     return str(config("COGNITO_JWKS_URI", default=""))
 
+def get_buffer_max_size() -> int:
+    return int(config("BUFFER_MAX_SIZE_MB", default=200)) * 1000000
+
 
 @functools.cache
 def get_secrets(key: str = "DIRECTORY_READ_EXTRACTION_SECRETS") -> Dict[str, str]:
