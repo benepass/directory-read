@@ -62,7 +62,6 @@ class MergeAPIClient:
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Authorization": f"Bearer {self.credentials['authorization_token']}",
-                "X-Account-Token": self.credentials["account_token"],
             },
             event_hooks={
                 "request": [partial(log_request, self.logger)],
@@ -70,7 +69,9 @@ class MergeAPIClient:
             },
         )
 
-    def _make_request(self, endpoint: str, params: QueryParams = {}) -> httpx.Response:
+    def _make_request(
+        self, account_token: str, endpoint: str, params: QueryParams = {}
+    ) -> httpx.Response:
         @retry(
             retry=retry_if_result(is_req_retriable),
             stop=stop.stop_after_attempt(get_maximum_request_attempts()),
@@ -80,19 +81,25 @@ class MergeAPIClient:
             retry_error_callback=raise_client_api_exception,
         )
         def f() -> httpx.Response:
-            return self.client.get(f"{self.url}{endpoint}", params=params)
+            return self.client.get(
+                f"{self.url}{endpoint}",
+                params=params,
+                headers={"X-Account-Token": account_token},
+            )
 
         return f()
 
-    def fetch_all(self, endpoint: str) -> Iterator[Dict[str, Any]]:
-        resp = self._make_request(endpoint, {"page_size": 100})
+    def fetch_all(self, account_token: str, endpoint: str) -> Iterator[Dict[str, Any]]:
+        resp = self._make_request(account_token, endpoint, {"page_size": 100})
         content = resp.json()
 
         yield from content.get("results", [])
 
         cursor = content.get("next", None)
         while cursor:
-            resp = self._make_request(endpoint, {"cursor": cursor, "page_size": 100})
+            resp = self._make_request(
+                account_token, endpoint, {"cursor": cursor, "page_size": 100}
+            )
             content = resp.json()
 
             yield from content.get("results", [])
