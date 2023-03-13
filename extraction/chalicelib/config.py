@@ -111,13 +111,22 @@ def get_secrets(key: str = "DIRECTORY_READ_EXTRACTION_SECRETS") -> Dict[str, str
 class MergeAPICredentials(TypedDict):
     api_url: str
     authorization_token: str
-    account_token: str
 
 
 def get_merge_api_credentials() -> MergeAPICredentials:
     secrets = get_secrets()
     return {
-        "api_url": config("MERGE_API_URL"),
-        "authorization_token": secrets["MERGE_API_BENEPASS_AUTHORIZATION_TOKEN"],
-        "account_token": secrets["MERGE_API_BENEPASS_ACCOUNT_TOKEN"],
+        "api_url": str(config("MERGE_API_URL")),
+        "authorization_token": secrets["MERGE_API_AUTHORIZATION_TOKEN"],
     }
+
+
+# This will get changed soon
+def get_benepass_connection():
+    secrets = get_secrets()
+
+    return (
+        "Benepass",
+        "employer_ia8QHtjqf3woezGWP9Kaco",
+        secrets["MERGE_API_BENEPASS_ACCOUNT_TOKEN"],
+    )
