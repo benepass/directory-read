@@ -32,5 +32,8 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements/base.txt -r requirements/test.txt
 
+      - name: Copy empty .env
+        run: cp example.env .env
+
       - name: Pytest it
         run: pytest -s -vv
