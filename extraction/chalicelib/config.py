@@ -1,11 +1,14 @@
+import functools
 from logging import INFO
-from typing import Optional, TypedDict
+from typing import Dict, Optional, TypedDict
 
 import sentry_sdk
 from decouple import config
 from sentry_sdk import init as init_sentry
 from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 from sentry_sdk.integrations.chalice import ChaliceIntegration
+
+from chalicelib.adapters import secret_manager
 
 DEV = "dev"
 TEST = "test"
@@ -89,5 +92,41 @@ def get_maximum_request_attempts() -> int:
     return 5 if not is_testing() else 2
 
 
-def get_cognito_jwks_uri() -> str:
-    return str(config("COGNITO_JWKS_URI", default=""))
+def get_buffer_max_size() -> int:
+    return int(config("BUFFER_MAX_SIZE_MB", default=200)) * 1000000
+
+
+@functools.cache
+def get_secrets(key: str = "DIRECTORY_READ_EXTRACTION_SECRETS") -> Dict[str, str]:
+    if is_dev_or_test():
+        config(
+            "ENVIRONMENT"
+        )  # Config is lazy and will only return the repo in case it gets called
+        return config.config.repository.data
+
+    return secret_manager.get_secret(key=str(config(key)))
+
+
+# Merge credentials
+class MergeAPICredentials(TypedDict):
+    api_url: str
+    authorization_token: str
+
+
+def get_merge_api_credentials() -> MergeAPICredentials:
+    secrets = get_secrets()
+    return {
+        "api_url": str(config("MERGE_API_URL")),
+        "authorization_token": secrets["MERGE_API_AUTHORIZATION_TOKEN"],
+    }
+
+
+# This will get changed soon
+def get_benepass_connection():
+    secrets = get_secrets()
+
+    return (
+        "Benepass",
+        "employer_ia8QHtjqf3woezGWP9Kaco",
+        secrets["MERGE_API_BENEPASS_ACCOUNT_TOKEN"],
+    )

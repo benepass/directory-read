@@ -3,7 +3,8 @@ from typing import Tuple
 from chalice.app import Chalice, CloudWatchEvent, Cron
 
 from chalicelib import config, middlewares
-from chalicelib.services.handlers.dummy import foo
+from chalicelib.presenters.custom import CustomPresenter
+from chalicelib.services.handlers.extractors import extract_benepass
 from chalicelib.services.unit_of_work import UnitOfWork
 
 
@@ -27,6 +28,7 @@ app, uow = bootstrap()
 EVERY_MIDNIGHT = Cron(0, 0, "*", "*", "?", "*")
 
 
-@app.schedule(name="dummy", expression=EVERY_MIDNIGHT)
-def dummy(event: CloudWatchEvent) -> dict:
-    return foo()
+@app.schedule(name="extract", expression=EVERY_MIDNIGHT)
+def extract(event: CloudWatchEvent) -> dict:
+    extract_benepass(uow)
+    return CustomPresenter(ok=True).to_dict()

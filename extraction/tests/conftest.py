@@ -1,10 +1,15 @@
+import json
 import os
 import sys
+from http import HTTPStatus
+from os.path import abspath, dirname, join
 from typing import Generator
+from urllib.parse import urlencode
 
 import boto3
 import freezegun
 import pytest
+import responses
 from chalice.app import Chalice
 from chalice.test import Client
 from moto import mock_s3
@@ -12,9 +17,11 @@ from pytest_httpx import HTTPXMock
 
 import app
 from chalicelib.adapters import storage as storage_adapter
-from chalicelib.config import get_storage_credentials
+from chalicelib.config import get_merge_api_credentials, get_storage_credentials
 
-sys.path.insert(0, os.path.realpath("./"))
+BASE_DIR = dirname(dirname(abspath(__file__)))
+
+sys.path.insert(0, os.path.join(BASE_DIR, "./"))
 
 
 @pytest.fixture
@@ -42,7 +49,7 @@ def bucket():
 def freeze():
     "Ensure that params are encoded using the same datetime"
 
-    with freezegun.freeze_time("2021-1-1T00:00:01+00:00") as freezed_time:
+    with freezegun.freeze_time("2023-03-13T00:00:01+00:00") as freezed_time:
         yield freezed_time
 
 
@@ -64,3 +71,33 @@ def make_cloudwatch_scheduled_event():
         )
 
     return _make_cloudwatch_event
+
+
+@pytest.fixture
+def mock_merge_roster_response(mocked_response):
+    cred = get_merge_api_credentials()
+
+    def f(
+        data,
+        query_params,
+        status_code=HTTPStatus.OK,
+    ):
+        mocked_response.add_response(
+            method=responses.GET,
+            url=f"{cred['api_url']}hris/v1/employees?{urlencode(query_params)}",
+            json=data,
+            status_code=status_code,
+        )
+
+    return f
+
+
+@pytest.fixture
+def mocked_merge_roster_response(mock_merge_roster_response, merge_roster):
+    mock_merge_roster_response(data=merge_roster, query_params={"page_size": 100})
+
+
+@pytest.fixture
+def merge_roster():
+    with open(join(BASE_DIR, "tests/mocks/merge/roster.json")) as f:
+        return json.load(f)
