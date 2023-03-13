@@ -26,7 +26,7 @@ def get_sentry_dsn() -> str:
 
 
 def get_app_name() -> str:
-    return "directory-read/extraction"
+    return "directory-read-extraction"
 
 
 def is_debug() -> bool:

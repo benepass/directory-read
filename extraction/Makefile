@@ -9,6 +9,12 @@ help:
 	@echo  '  make check                   - Check for any formatting or linting issues.'
 	@echo  '  make test                    - Run project tests.'
 	@echo  '  make test-cov                - Run project tests and generate a coverage report.'
+	@echo  '  make local-deploy env=<ENV>  - Build and deploy application to specified stage. (Local)'
+	@echo  '  make deploy env=<ENV>        - Build and deploy application to specified stage.'
+	@echo  '  make local-update env=<ENV>  - Deploy (w/o building) application to specified stage. (Local)'
+	@echo  '  make update env=<ENV>        - Deploy (w/o building) application to specified stage.'
+	@echo  '  make local-destroy           - Destroy application from the specified stage. (Local)'
+	@echo  '  make destroy                 - Destroy application from the specified stage.'
 	@echo  ''
 	@echo  'Auxiliary targets (generally dependencies):'
 	@echo  ''
@@ -57,3 +63,28 @@ test:
 
 test-cov:
 	pytest -s -vv --cov .
+
+build-chalice-terraform:
+	chalice package --stage $(env) --pkg-format terraform terraform/
+
+deploy: build-chalice-terraform init-terraform update-terraform
+
+local-deploy: build-chalice-terraform init-local-terraform update-local-terraform
+
+init-terraform:
+	cd terraform && terraform init && terraform workspace select $(env) || terraform workspace new $(env)
+
+init-local-terraform:
+	cd terraform && tflocal init && tflocal workspace select $(env) || tflocal workspace new $(env)
+
+update-terraform:
+	cd terraform && terraform validate && terraform apply -auto-approve
+
+update-local-terraform:
+	cd terraform && tflocal validate && tflocal apply -auto-approve
+
+destroy:
+	cd terraform && terraform destroy -auto-approve
+
+destroy-local:
+	cd terraform && tflocal delete --stage $(env) -auto-approve

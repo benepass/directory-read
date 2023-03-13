@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "app_bucket" {
   tags = {
     "environment" = terraform.workspace
     "project"     = var.project_name
-    "alias"       = "reports"
+    "alias"       = var.project_name
   }
 }
 
