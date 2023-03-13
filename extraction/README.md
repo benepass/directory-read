@@ -6,7 +6,7 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 <a href="https://github.com/PyCQA/bandit"><img alt="Security: bandit" src="https://img.shields.io/badge/security-bandit-green.svg"></a>
 
-`directory-read/extraction` is a Python serverless application built on top of [Chalice](https://aws.github.io/chalice/quickstart.html).
+`directory-read-extraction` is a Python serverless application built on top of [Chalice](https://aws.github.io/chalice/quickstart.html).
 
 - [directory-reads](#directory-reads)
     + [Requirements](#requirements)
@@ -51,7 +51,7 @@ pyenv local 3.9.11
 4. Create the virtualenv
 
 ```shell
-pyenv virtualenv directory-read/extraction
+pyenv virtualenv directory-read-extraction
 ```
 
 5. Install project requirements

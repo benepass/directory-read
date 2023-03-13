@@ -4,8 +4,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "directory-read/extraction-terraform-state"
-    dynamodb_table = "directory-read/extraction-terraform-locks"
+    bucket         = "directory-read-extraction-terraform-state"
+    dynamodb_table = "directory-read-extraction-terraform-locks"
     key            = "terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true

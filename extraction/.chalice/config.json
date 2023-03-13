@@ -1,0 +1,35 @@
+{
+  "version": "2.0",
+  "app_name": "directory-read-extraction",
+  "manage_iam_role": false,
+  "environment_variables": {
+    "BUFFER_MAX_SIZE_MB": "2000"
+  },
+  "stages": {
+    "dev": {
+      "iam_role_arn": "arn:aws:iam::000000000000:role/directory-read-extraction-dev",
+      "environment_variables": {
+        "DEBUG": "true",
+        "ENVIRONMENT": "dev",
+        "AWS_STORAGE_BUCKET_NAME": "directory-read-extraction-dev",
+        "ENDPOINT_URL": "http://localstack:4566/",
+        "MERGE_API_URL": "https://api-sandbox.merge.dev/api/",
+        "MERGE_API_AUTHORIZATION_TOKEN": "",
+        "MERGE_API_BENEPASS_ACCOUNT_TOKEN": ""
+      }
+    },
+    "prod": {
+      "automatic_layer": true,
+      "iam_role_arn": "arn:aws:iam::786155206025:role/directory-read-extraction-prod",
+      "environment_variables": {
+        "SENTRY_DSN": "https://ee34a9a935464258be3fa08e404900c0@o463927.ingest.sentry.io/6323889",
+        "DEBUG": "false",
+        "ENVIRONMENT": "prod",
+        "MERGE_API_URL": "https://api.merge.dev/api/",
+        "AWS_STORAGE_BUCKET_NAME": "directory-read-extraction-prod",
+        "DIRECTORY_READ_EXTRACTION_SECRETS": "directory-read/extraction-secrets"
+      }
+    }
+  }
+}
+

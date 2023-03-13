@@ -1,5 +1,5 @@
 variable "project_name" {
-  default = "directory-read/extractions"
+  default = "directory-read-extraction"
 }
 variable "region" {
   default = "us-east-1"
